@@ -15,21 +15,60 @@ it and understand how testing works .
 */
 
 #include <stdio.h>
-
+#include <stdlib.h>
 struct node{
 	struct node * left;
 	int data;
 	struct node *right;
 };
 
-
+void helper_inorder(struct node* root, int* arr, int* a);
+void helper_preorder(struct node* root, int* arr, int a);
+void helper_postorder(struct node* root, int* arr, int* a);
 void inorder(struct node *root, int *arr){
-	
+	if (root == NULL || arr == NULL)
+		return;
+	int *a = (int*)calloc(1, sizeof(int));
+	helper_inorder(root, arr, a);
+	for (int i = 0; i < 5; i++)
+		printf("%d ", arr[i]);
+	printf("\n");
+	free(a);
+}
+void helper_inorder(struct node *root, int *arr, int *a){
+	if (root == NULL) return;
+	printf("%d", a);
+	helper_inorder(root->left, arr, a);
+	arr[*a] = root->data;
+	(*a)++;
+	helper_inorder(root->right, arr, a);
 }
 void preorder(struct node *root, int *arr){
-	
+	if (root == NULL || arr == NULL)
+		return;
+	int a = 0;
+	helper_preorder(root, arr, 0);
+}
+void helper_preorder(struct node* root, int* arr, int a)
+{
+	if (root == NULL) return;
+	arr[a] = root->data;
+	helper_preorder(root->left, arr, ++a);
+	helper_preorder(root->right, arr, ++a);
 }
 void postorder(struct node *root, int *arr){
-	
-}
+	if (root == NULL || arr == NULL)
+		return;
+	int *i = (int*)calloc(1, sizeof(int));
+	helper_postorder(root, arr, i);
 
+	free(i);
+}
+void helper_postorder(struct node* root, int* arr, int* a)
+{
+	if (root == NULL) return;
+	helper_postorder(root->left, arr, a);
+	helper_postorder(root->right, arr, a);
+	arr[*a] = root->data;
+	(*a)++;
+}

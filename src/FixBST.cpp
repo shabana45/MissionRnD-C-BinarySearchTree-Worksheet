@@ -31,7 +31,32 @@ struct node{
 	int data;
 	struct node *right;
 };
-
+void helper_preorder1(struct node* root, int* arr, int a);
+void preorder1(struct node *root, int *arr);
+//struct node * new_node(int data);
+void helper_preorder1(struct node* root, int* arr, int a)
+{
+	if (root == NULL) return;
+	printf("%d ", a);
+	arr[a] = root->data;
+	helper_preorder1(root->left, arr, ++a);
+	helper_preorder1(root->right, arr, ++a);
+}
+void preorder1(struct node *root, int *arr){
+	if (root == NULL || arr == NULL)
+		return;
+	helper_preorder1(root, arr, 0);
+	for (int i = 0; i < 3; i++)
+    	printf("%d ", arr[i]);
+	printf("\n");
+}
 void fix_bst(struct node *root){
+	if (root = NULL) return; 
+	int *arr = (int*)calloc(10 , sizeof(int));
+	preorder1(root, arr);
+	//for (int i = 0; i < 3; i++)
+		//printf("%d ", results[i]);
+	//for (int i = 0; i < 10;i++)
+		//root = add_node(root, results[i]);
 
 }
