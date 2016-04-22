@@ -125,7 +125,7 @@ namespace spec
 			originaldata[1] = swaplist[1]->data;
 
 			swap_nodes(swaplist[0], swaplist[1]);
-
+			
 			fix_bst(root);
 
 			for (int i = 0; i < 1; i++){

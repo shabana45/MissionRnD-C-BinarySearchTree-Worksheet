@@ -35,28 +35,23 @@ struct node * add_node_spec(struct node *root, int data){
 
 	return root;
 }
-
+void swap_nodes(struct node *a, struct node *b){
+	int temp = a->data;
+	a->data = b->data;
+	b->data = temp;
+}
 int main(){
 
-
 	struct node *root = NULL;
-	int nums[10] = { 5, 2, 10, 7, 12 };
-	int elements = 5;
-	for (int i = 0; i < elements; i++)
+	int nums[10] = { 50, 25, 75, 30, 27, 60, 99, 53, 51, 57 };
+
+	for (int i = 0; i < 10; i++){
 		root = add_node_spec(root, nums[i]);
-	int results[3][3];
-	inorder(root, &results[0][0]);
-	for (int i = 0; i < 5; i++)
-		printf("%d", results[0][i]);
-	printf("\n");
-	preorder(root, &results[1][0]);
-	for (int i = 0; i < 5; i++)
-		printf("%d", results[1][i]);
-	printf("\n");
-	postorder(root, &results[2][0]);
-	for (int i = 0; i < 5; i++)
-		printf("%d", results[2][i]);
-	printf("\n");
+	}
+
+
+	int *arr = BSTRighttoLeftRows(root);
+	int ans[10] = { 50, 75, 25, 99, 60, 30, 53, 27, 57, 51 };
 	_getch();
 	return 0;
 }

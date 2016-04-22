@@ -46,7 +46,6 @@ void helper_inorder(struct node *root, int *arr, int *a){
 void preorder(struct node *root, int *arr){
 	if (root == NULL || arr == NULL)
 		return;
-	int a = 0;
 	helper_preorder(root, arr, 0);
 }
 void helper_preorder(struct node* root, int* arr, int a)
