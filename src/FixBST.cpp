@@ -48,7 +48,6 @@ void helper_fixBST(struct node* root, struct node** start, struct node** last, s
 {
 	if (root == NULL) return;
 	helper_fixBST(root->right, start, last, prevnode);
-	printf("s");
 	if (*prevnode && root->data > (*prevnode)->data)
 		{
 			if (*start==NULL)
@@ -60,6 +59,5 @@ void helper_fixBST(struct node* root, struct node** start, struct node** last, s
 				*last = root;
 		}
 		*prevnode = root;
-		printf("x");
 		helper_fixBST(root->left, start, last, prevnode);
 }
