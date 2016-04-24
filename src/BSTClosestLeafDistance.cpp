@@ -34,12 +34,80 @@ Return -1 ,for Invalid Inputs
 #include <stdio.h>
 
 struct node{
-  struct node * left;
-  int data;
-  struct node *right;
+	struct node * left;
+	int data;
+	struct node *right;
 };
-
+int get_smallest(int* dist, int len);;
+int getLeafNodes(struct node* node, int* arr, int* i);
+struct node* findCommonAncestor(struct node *root, int n1, int n2);
+int Pathlength(struct node *root, int n1);
 int get_closest_leaf_distance(struct node *root, struct node *temp)
 {
-  return -1;
+	if (root == NULL || temp == NULL)
+		return -1;
+	int *arr = (int*)malloc(10 * sizeof(int));
+	int *a = (int*)calloc(1, sizeof(int));
+	int x = Pathlength(root, temp->data) - 1;
+	getLeafNodes(root, arr, a);
+	int* dist = (int*)malloc(10 * sizeof(int));
+	int* k = (int*)calloc(1, sizeof(int));
+	for (int i = 0; i < *a; i++){
+		int y = Pathlength(root, arr[i]) - 1;
+		int lcaData = findCommonAncestor(root, temp->data, arr[i])->data;
+		int lcaDistance = Pathlength(root, lcaData) - 1;
+		dist[*k] = (x + y) - 2 * lcaDistance;
+		(*k)++;
+	}
+	return get_smallest(dist, *k);
+	return 0;
+}
+int Pathlength(struct node *root, int n1) {
+	if (root != NULL) {
+		int x = 0;
+		if ((root->data == n1) || (x = Pathlength(root->left, n1)) > 0 || (x = Pathlength(root->right, n1)) > 0)
+			return x + 1;
+	}
+	return 0;
+}
+struct node* findCommonAncestor(struct node *root, int n1, int n2) {
+	if (root != NULL) {
+		if (root->data == n1 || root->data == n2) {
+			return root;
+		}
+		struct node* left = findCommonAncestor(root->left, n1, n2);
+		struct node* right = findCommonAncestor(root->right, n1, n2);
+
+		if (left != NULL && right != NULL) {
+			return root;
+		}
+		if (left != NULL) {
+			return left;
+		}
+		if (right != NULL) {
+			return right;
+		}
+	}
+	return NULL;
+}
+int getLeafNodes(struct node* node, int* arr, int* i)
+{
+	if (node == NULL)
+		return 0;
+	if (node->left == NULL && node->right == NULL){
+		arr[*i] = node->data;
+		(*i)++;
+		return 1;
+	}
+	else
+		return getLeafNodes(node->left, arr, i) + getLeafNodes(node->right, arr, i);
+}
+int get_smallest(int *dist, int len)
+{
+	int small = dist[0];
+	for (int i = 1; i < len; i++)
+	if (small>dist[i]){
+		small = dist[i];
+	}
+	return small;
 }

@@ -43,15 +43,15 @@ void swap_nodes(struct node *a, struct node *b){
 int main(){
 
 	struct node *root = NULL;
-	int nums[10] = { 50, 25, 75, 30, 27, 60, 99, 53, 51, 57 };
+	int nums[10] = { 2, 1, 4, 3 };
 
-	for (int i = 0; i < 10; i++){
+	for (int i = 0; i < 4; i++){
 		root = add_node_spec(root, nums[i]);
 	}
-
-
-	int *arr = BSTRighttoLeftRows(root);
-	int ans[10] = { 50, 75, 25, 99, 60, 30, 53, 27, 57, 51 };
+	struct node *temp = root->right;
+	int ans = 1;
+	int dist = get_closest_leaf_distance(root, temp);
+	printf("%d ", dist);
 	_getch();
 	return 0;
 }
